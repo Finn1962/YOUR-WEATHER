@@ -6,6 +6,8 @@ import { useRef, useEffect, useState } from "react";
 import HoursPreview from "./HoursPreview.jsx";
 import DaysPreview from "./DaysPreview.jsx";
 import Switch from "./Switch.jsx";
+import DropIcon from "./DropIcon.jsx";
+import WindIcon from "./WindIcon.jsx";
 
 //Assets
 import clearDay from "../assets/clear-day.svg";
@@ -93,7 +95,6 @@ export default function DataDisplay({ weatherData }) {
   function convertToKMH(speed) {
     return (speed * 1.60934).toFixed(1);
   }
-
   return (
     <StyledContainer $unit={unit}>
       <div className="switch-container">
@@ -115,8 +116,25 @@ export default function DataDisplay({ weatherData }) {
             </span>
           </p>
         </div>
-        <p>{weatherData.days[0].conditions}</p>
+        <p className="today-description">{weatherData.days[0].conditions}</p>
+        <div>
+          <DropIcon className="drop-icon" />
+          <p className="rain-prob">
+            {weatherData.days[0].precipprob}
+            <span>%</span>
+          </p>
+        </div>
+        <div>
+          <WindIcon className="wind-icon" />
+          <p className="wind-speed">
+            {unit === "fahrenheit"
+              ? weatherData.days[0].windspeed
+              : convertToKMH(weatherData.days[0].windspeed)}
+          </p>
+          <span>{unit === "fahrenheit" ? "mph" : "kmp"}</span>
+        </div>
       </div>
+
       <div className="hours-container" ref={hoursContainerRef}>
         {weatherData.days[0].hours.map((hour) => (
           <HoursPreview
@@ -134,8 +152,9 @@ export default function DataDisplay({ weatherData }) {
           />
         ))}
       </div>
+
       <div className="next-days-container">
-        {weatherData.days.map((day) => (
+        {weatherData.days.slice(1).map((day) => (
           <DaysPreview
             day={day}
             weatherIcons={weatherIcons}
@@ -191,25 +210,40 @@ const StyledContainer = styled.div`
     justify-content: start;
     align-items: center;
 
+    .today-description {
+      margin: 10px 0;
+    }
+
     div {
       display: flex;
       justify-content: center;
       align-items: end;
-      gap: 20px;
-      margin-bottom: 10px;
+
+      .today-tempature {
+        font-size: 4rem;
+        font-weight: 700;
+        filter: drop-shadow(0px 0px 18px #00000015);
+        line-height: 1;
+      }
+
+      .rain-prob,
+      .wind-speed {
+        font-size: 1rem;
+        font-weight: normal;
+      }
+
+      .drop-icon,
+      .wind-icon {
+        min-width: 20px;
+        align-self: center;
+        margin: 0 5px 0 0;
+      }
 
       img {
         filter: drop-shadow(0px 0px 18px #00000015);
         width: 3.5rem;
         min-height: 3.5rem;
         transform: translateY(-10px);
-      }
-
-      p {
-        font-size: 4rem;
-        font-weight: 700;
-        filter: drop-shadow(0px 0px 18px #00000015);
-        line-height: 1;
       }
     }
 

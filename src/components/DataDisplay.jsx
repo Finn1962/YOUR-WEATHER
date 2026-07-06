@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from "react";
 import HoursPreview from "./HoursPreview.jsx";
 import DaysPreview from "./DaysPreview.jsx";
 import Switch from "./Switch.jsx";
+
 import DropIcon from "./DropIcon.jsx";
 import WindIcon from "./WindIcon.jsx";
 
@@ -131,7 +132,7 @@ export default function DataDisplay({ weatherData }) {
               ? weatherData.days[0].windspeed
               : convertToKMH(weatherData.days[0].windspeed)}
           </p>
-          <span>{unit === "fahrenheit" ? "mph" : "kmp"}</span>
+          <span>{unit === "fahrenheit" ? "mph" : "kmh"}</span>
         </div>
       </div>
 
@@ -176,6 +177,10 @@ const StyledContainer = styled.div`
   border-radius: 33px;
   padding: 20px 20px 20px 20px;
 
+  .search-bar {
+    justify-self: center;
+  }
+
   .switch-container {
     display: flex;
     justify-content: center;
@@ -216,8 +221,12 @@ const StyledContainer = styled.div`
 
     div {
       display: flex;
-      justify-content: center;
+      justify-content: end;
       align-items: end;
+
+      img {
+        margin-right: 10px;
+      }
 
       .today-tempature {
         font-size: 4rem;
@@ -286,5 +295,15 @@ const StyledContainer = styled.div`
     padding: 15px;
     scrollbar-color: #ffffff #e0e0e000;
     scrollbar-width: thin;
+  }
+
+  @media (max-width: 700px) {
+    .hours-container {
+      gap: 15px;
+    }
+
+    .next-days-container {
+      gap: 15px;
+    }
   }
 `;

@@ -84,21 +84,21 @@ const StyledWrapper = styled.div`
       background-color 0.2s,
       transform 0.2s;
   }
-  /* Checked */
+
   .cl-switch > input:checked {
     right: -10px;
     background-color: #ffffff;
   }
 
   .cl-switch > input:checked + span::before {
-    background-color: #797979;
+    background-color: #4e4e4e;
   }
 
   .cl-switch > input:checked + span::after {
     background-color: #ffffff;
     transform: translateX(16px);
   }
-  /* Hover, Focus */
+
   .cl-switch:hover > input {
     opacity: 0.04;
   }

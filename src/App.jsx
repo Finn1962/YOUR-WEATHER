@@ -32,17 +32,21 @@ export default function App() {
     <StyledAppContainer>
       {loaderIsVisible && <Loader className="loader" />}
       <div className="content-container">
-        {searchValue === "" && (
-          <>
-            <img src={logo} className="logo" />
-            <h1 className="slogan">YOUR WEATHER.COM</h1>{" "}
-          </>
-        )}
-        <SearchBar setSearchValue={setSearchValue} className="search-bar" />
-        {searchValue === "" && <p>Enter a location.</p>}
-        <DataDisplay weatherData={weatherData} />
+        <div className="content-wrapper">
+          {searchValue === "" && (
+            <>
+              <img src={logo} className="logo" />
+              <h1 className="slogan">YOUR WEATHER.COM</h1>
+            </>
+          )}
+          <SearchBar setSearchValue={setSearchValue} className="search-bar" />
+          {searchValue === "" && (
+            <p className="enter-location">Enter a location.</p>
+          )}
+          <DataDisplay weatherData={weatherData} />
+        </div>
       </div>
-      <BackgroundImage weatherData={weatherData} />
+      <BackgroundImage weatherData={weatherData} className="background-image" />
     </StyledAppContainer>
   );
 }
@@ -58,29 +62,61 @@ const StyledAppContainer = styled.div`
 
   .content-container {
     padding: 0 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: relative;
     z-index: 3;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 1200px;
-    height: auto;
+  }
+
+  .content-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
 
-    .logo {
-      width: 150px;
+  .logo {
+    width: 150px;
+    margin-bottom: 10px;
+  }
+
+  .slogan {
+    margin: 10px 20px 20px 20px;
+    text-align: center;
+  }
+
+  .search-bar {
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .enter-location {
+    margin-bottom: 100px;
+  }
+
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  @media (max-width: 700px) {
+    .search-bar {
+      padding: 0;
     }
 
     .slogan {
-      margin: 10px 0 30px 0;
+      font-size: 1.5rem;
     }
 
-    .search-bar {
-      margin-bottom: 40px;
+    .content-container {
+      padding: 0px;
     }
   }
 `;

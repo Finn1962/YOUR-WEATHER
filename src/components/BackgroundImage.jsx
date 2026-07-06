@@ -32,12 +32,12 @@ const weatherIcons = {
   wind: cloudesBackground,
 };
 
-export default function BackgroundImage({ weatherData }) {
+export default function BackgroundImage({ weatherData, className }) {
   const backgourndImage = weatherData
     ? weatherIcons[weatherData.days[0].icon]
     : sunnyBackground;
 
-  return <StyledImage src={backgourndImage} />;
+  return <StyledImage className={className} src={backgourndImage} />;
 }
 
 const StyledImage = styled.img`

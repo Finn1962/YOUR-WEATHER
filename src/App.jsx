@@ -107,10 +107,6 @@ const StyledAppContainer = styled.div`
   }
 
   @media (max-width: 700px) {
-    .search-bar {
-      padding: 0;
-    }
-
     .slogan {
       font-size: 1.5rem;
     }
